@@ -76,7 +76,7 @@ Review the planned changes and confirm by typing "yes" when prompted.
 
 Access the Website: After the Terraform deployment is complete, you can access the website through the public ALB's DNS name or endpoint.
 
-###Cleanup
+### Cleanup
 To clean up and destroy the created resources, run the following command:
 ```
 $ terraform destroy
