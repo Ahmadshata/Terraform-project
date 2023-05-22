@@ -8,6 +8,11 @@ The architecture enables routing requests from an internet-facing ALB to Nginx r
 which then forward the requests to an internal ALB. 
 The internal ALB directs the traffic to Apache web server instances in private subnets, serving the website content.
 
+The Terraform project incorporates a robust state management system to track and manage the infrastructure's state. This is achieved by configuring the project to store the state file in an S3 bucket and using DynamoDB to monitor and manage the state.
+When the Terraform project is executed, the state file, which contains information about the deployed infrastructure's current state, is uploaded instantaneously to an S3 bucket. This ensures that the state file is stored securely and centrally accessible.
+Additionally, DynamoDB is utilized as a backend for state locking and consistency. This means that when multiple users or processes attempt to modify the infrastructure concurrently, DynamoDB ensures that only one process can make changes at a given time, preventing conflicts and maintaining consistency.
+By leveraging S3 for storing the state file and DynamoDB for state locking and consistency management, the Terraform project ensures efficient and reliable state management. This allows for collaboration, scalability, and smooth orchestration of infrastructure changes, enhancing the overall management and control of the infrastructure deployed using Terraform.
+
 
 ## Infrastructure Overview
 
