@@ -1,32 +1,51 @@
 # CloudProxy-IaC
-```
-CloudProxy-IaC is a Terraform project that provisions a highly available infrastructure using Infrastructure as Code (IaC) principles. It sets up a Virtual Private Cloud (VPC) with an Internet Gateway (IGW), subnets, an Application Load Balancer (ALB), and EC2 instances. The architecture enables routing requests from an internet-facing ALB to Nginx reverse proxy instances in public subnets, which then forward the requests to an internal ALB. The internal ALB directs the traffic to Apache web server instances in private subnets, serving the website content.
-```
+
+![image](https://github.com/Ahmadshata/Terraform-project/assets/124501795/ba320c05-5dc1-4423-ba94-73d89cc5286b)
+
+CloudProxy-IaC is a project that provisions a highly available infrastructure using Infrastructure as Code (IaC) principles.
+It sets up a Virtual Private Cloud (VPC) with an Internet Gateway , subnets, an Application Load Balancers (ALB), and EC2 instances.
+The architecture enables routing requests from an internet-facing ALB to Nginx reverse proxy instances in public subnets,
+which then forward the requests to an internal ALB. 
+The internal ALB directs the traffic to Apache web server instances in private subnets, serving the website content.
+
 
 ## Infrastructure Overview
+
 The project provisions the following components using Terraform as the IaC tool:
 
 ### VPC and IGW
+```
 Creates a VPC and attaches an Internet Gateway to enable internet connectivity.
-
+```
 ### Subnets
+```
 Defines two public subnets and two private subnets within the VPC.
-
+```
 ### ALB (Public)
+```
 Sets up an internet-facing Application Load Balancer (ALB) in the public subnets, listening on port 80 for HTTP requests.
-
+```
 ### EC2 Instances (Public)
-Launches EC2 instances in the public subnets. Uses Terraform provisioner to install Nginx reverse proxy on the instances and configure them to proxy requests to the internal ALB.
-
+```
+Launches EC2 instances in the public subnets. Utilizes Terraform provisioner to install Nginx reverse proxy on the instances
+and configure them to proxy requests to the internal ALB.
+```
 ### ALB (Internal)
-Creates an internal Application Load Balancer (ALB) in the private subnets, listening on the desired port for requests from the public instances.
-
+```
+Creates an internal Application Load Balancer (ALB) in the private subnets, listening on the desired port for requests from
+the public instances.
+```
 ### EC2 Instances (Private)
-Launches EC2 instances in the private subnets with Apache web server installed, serving the website content. Uses userdata to configure the Apache server.
-
+```
+Launches EC2 instances in the private subnets with Apache web server installed, serving the website content. 
+Uses userdata to install and configure the Apache server.
+```
 ### Traffic Flow
-Client requests are directed to the public ALB, which forwards them to the public EC2 instances running Nginx. Nginx redirects the requests to the internal ALB, which then forwards them to the private EC2 instances running Apache. The response flows back through the same path, reaching the client.
-
+```
+Client requests are directed to the public ALB, which forwards them to the public EC2 instances running Nginx.
+Nginx redirects the requests to the internal ALB, which then forwards them to the private EC2 instances running Apache.
+The response flows back through the same path, reaching the client.
+```
 ### Usage
 To use this Infrastructure as Code (IaC) project, follow these steps:
 
@@ -38,8 +57,8 @@ Configure Variables: Modify the variables in the variables.tf file to match your
 
 Initialize and Apply: Run the following commands to initialize Terraform and apply the configuration:
 ```
-terraform init
-terraform apply
+$ terraform init
+$ terraform apply
 ```
 Review the planned changes and confirm by typing "yes" when prompted.
 
@@ -48,12 +67,12 @@ Access the Website: After the Terraform deployment is complete, you can access t
 ###Cleanup
 To clean up and destroy the created resources, run the following command:
 ```
-terraform destroy
+$ terraform destroy
 ```
 Review the planned actions and confirm by typing "yes" when prompted.
-```
-Note: Be cautious when running the destroy command as it will remove all the resources created by this IaC Terraform project.
-```
+
+> :warning: Be cautious when running the destroy command as it will remove all the resources created by this IaC Terraform project.
+
 ### Customization
 Feel free to customize the project as per your requirements. You can modify the VPC CIDR ranges, security groups, instance types, or add additional configurations as needed.
 
